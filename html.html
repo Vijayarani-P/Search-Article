@@ -1,0 +1,67 @@
+
+<html>
+<head>
+<title> SEARCH ARTICLE</title>
+<link rel="stylesheet" type="text/css" href="web.css">
+</head>
+<body>
+<center>
+    <div>
+<h1><b>WEB API</b></h1>
+        <br><br>
+    <p><b> Search Article:<input class="bar" type="text" id="article"></b></p>
+    <br><br>
+<h2>THE ARTICLE U CAN SEARCH ARE..</h2>
+    <p>arts, automobiles, books, business, fashion, food, health, home, insider, magazine, movies, </p>
+<p>national, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, </p>
+<p>technology, theater, tmagazine, travel, upshot, world</p>
+<br>
+<br>
+    <button type="submit" onclick="getpost()" >click to search</button>
+    <br>
+    <br>
+   </div>
+   <div id="output" class="align"></div>
+   <div id="output1" class="align"></div>
+ </center>
+   <script>
+     function getpost(){
+      var title=document.getElementById('article').value;
+     console.log(title);
+      if(title == "") {
+        alert("Provide article name to proceed..");
+      }
+      else
+      {
+      fetch('https://api.nytimes.com/svc/topstories/v2/'+title+'.json?api-key=6LavafmvgsBsdhH7Lf7tl0jme5Hl4zKJ')
+
+      .then((resp) => resp.json())
+        .then(function(resp) {
+         console.log(resp);
+        localStorage.setItem("jsonData",JSON.stringify(resp));
+        var data = localStorage.getItem('jsonData');
+        var jsonData = JSON.parse(data);
+        var articleabs="";
+        articleabs+="<ul>"
+        
+        articleabs+="<b>TITLE</b>"
+       articleabs+="<li>" + jsonData.results[0]. title + "</li>";
+       articleabs+="<b>PUBLISHED DATE</b>"
+       articleabs+="<li>" + jsonData.results[0]. published_date+ "</li>";
+       articleabs+="<b>UPDATED DATE</b>"
+       articleabs+="<li>" + jsonData.results[0]. updated_date+ "</li>";
+       articleabs+="<b>SECTION</b>"
+       articleabs+="<li>" + jsonData.results[0]. section+ "</li>";
+       articleabs+="<b>URL</b>"
+       articleabs+='<a target="blank" href="'+jsonData.results[0].url +'">'+jsonData.results[0].url +'</a>';
+       articleabs+="</ul>";
+   document.getElementById('output').innerHTML=articleabs;
+ }).catch(function() {
+            document.getElementById("output").innerHTML="none";
+            alert("Oops!Author Not Found");
+});
+    }
+  }
+ </script>
+</body>
+</html>

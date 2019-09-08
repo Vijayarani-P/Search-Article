@@ -1,0 +1,19 @@
+*
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#article{
+  text-align: center;
+  color:black;
+}
+body{
+  background-color: #7fffd4;
+  font-family:'Handlee',cursive;
+  font-size: 16px;
+  background-size: cover;
+}
+.align{
+  text-align: justify;
+}
